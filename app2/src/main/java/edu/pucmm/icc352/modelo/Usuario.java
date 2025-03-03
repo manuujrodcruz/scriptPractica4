@@ -1,41 +1,22 @@
 package edu.pucmm.icc352.modelo;
 
 import edu.pucmm.icc352.util.RolesApp;
-import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.Set;
 
-@Entity
-public class Usuario implements Serializable {
-    @Id
-    @Column(unique = true, nullable = false)
+public class Usuario {
     private String username;
-    @Column(nullable = false)
     private String nombre;
-    @Column(nullable = false)
     private String password;
-    @Lob
-    @Column(columnDefinition = "TEXT") // Guardar como texto Base64
-    private String profilePhoto;
     //private boolean administrator;
     //private boolean autor;
-    //Como es ENUM se utiliza lo siguiente:
-    @ElementCollection(fetch = FetchType.EAGER) // Almacena los roles como una colección simple
-    @Enumerated(EnumType.STRING)  // Guarda los roles como Strings en la BD
-    @CollectionTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"))
-    @Column(name = "rol")
     Set<RolesApp> listaRoles;
 
-    public Usuario() {
-    }
-
-    public Usuario(String username, String nombre, String password, Set<RolesApp> listaRoles, String profilePhoto) {
+    public Usuario(String username, String nombre, String password, Set<RolesApp> listaRoles) {
         this.username = username;
         this.nombre = nombre;
         this.password = password;
         this.listaRoles = listaRoles;
-        this.profilePhoto = profilePhoto;
     }
 
 
@@ -76,14 +57,6 @@ public class Usuario implements Serializable {
         return listaRoles.contains(rol);
 
     }
-    public String getProfilePhoto() {
-        return profilePhoto;
-    }
-    public void setProfilePhoto(String profilePhoto)
-    {
-        this.profilePhoto = profilePhoto;
-    }
-
 
 
     public boolean tieneRol(String rol) {

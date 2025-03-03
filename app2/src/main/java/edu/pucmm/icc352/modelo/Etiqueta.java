@@ -1,31 +1,19 @@
 package edu.pucmm.icc352.modelo;
 
-import jakarta.persistence.*;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-public class Etiqueta implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Etiqueta {
     private long id;
-
-    @Column(nullable = false, unique = true)
     private String etiqueta;
 
-    public Etiqueta(String etiqueta) {
+    public Etiqueta(int id, String etiqueta) {
+        this.id = id;
         this.etiqueta = etiqueta;
     }
-
-    public Etiqueta() {}
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

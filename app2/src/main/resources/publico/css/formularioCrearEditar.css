@@ -92,37 +92,3 @@ aside p {
 hr {
     border-top: 1px solid #4a5568; /* Color del separador */
 }
-
-/* ===== Estilos para el dialog de error ===== */
-#errorDialog {
-    background-color: #2d3748;
-    color: #edf2f7;
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    width: 300px;
-}
-
-/* Estilo para el mensaje dentro del dialog de error */
-#errorDialog p {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-}
-
-/* Botón para cerrar el diálogo de error */
-#errorDialog button {
-    background-color: #e53e3e; /* Color de fondo del botón de error */
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s;
-}
-
-#errorDialog button:hover {
-    background-color: #c53030; /* Color de fondo del botón de error al pasar el mouse */
-}

@@ -11,30 +11,22 @@
 <div class="container">
     <div class="login-container">
         <h1>Registro</h1>
-
-        <form id="signupForm" action="/signup" method="post" enctype="multipart/form-data">
+        <form id="signupForm" action="/signup" method="post">
             <input type="text" name="name" placeholder="Nombre" required class="form-control mb-2" id="name"/>
             <input type="text" name="username" placeholder="Usuario" required class="form-control mb-2" id="username"/>
             <input type="password" name="password" placeholder="Contraseña" required class="form-control mb-2" id="password"/>
 
             <!-- Selector de Roles -->
-            <select name="role" class="form-control mb-2" required id="role">
+            <select name="role" class="form-control mb-2" required>
                 <option value="Usuario">Usuario</option>
                 <option value="Autor">Autor</option>
             </select>
 
-            <!-- Subir foto de perfil -->
-            <label for="profilePhoto" class="form-label">Foto de Perfil:</label>
-            <input type="file" name="profilePhoto" accept="image/*" class="form-control mb-2" id="profilePhoto" onchange="previewImage(event)"/>
-
-            <!-- Vista previa de la imagen -->
-            <img id="preview" src="" alt="Vista previa" class="img-thumbnail mb-2" style="max-width: 150px; display: none;"/>
-
             <input type="submit" value="Registrarse" class="btn btn-success w-100 mt-3"/>
         </form>
-
         <a href="/login" class="d-block mt-3">← Iniciar sesión</a>
         <a href="/" class="d-block mt-3">← Volver al inicio</a>
+
     </div>
 </div>
 
@@ -45,29 +37,11 @@
 
 <!-- Dialog de error -->
 <dialog id="errorDialog">
-    <p id="errorMessage">Error en el registro. Intenta nuevamente.</p>
+    <p>Error en el registro. Intenta nuevamente.</p>
     <button onclick="cerrarDialogo()">Cerrar</button>
 </dialog>
 
 <script>
-    // Vista previa de la imagen seleccionada
-    function previewImage(event) {
-        const preview = document.getElementById("preview");
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                preview.src = reader.result;
-                preview.style.display = "block";
-            };
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
-            preview.style.display = "none";
-        }
-    }
-
     document.getElementById('signupForm').addEventListener('submit', async function(event) {
         event.preventDefault(); // Evitar el envío inmediato del formulario
 
@@ -77,30 +51,29 @@
             body: formData
         });
 
-        if (response.ok) {
-            // Vaciar los campos del formulario y ocultar la vista previa de la imagen
-            event.target.reset();
-            document.getElementById("preview").src = "";
-            document.getElementById("preview").style.display = "none";
+        // Vaciar los campos de entrada
+        document.getElementById('name').value = '';
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
 
-            // Mostrar mensaje de éxito
+        // Mostrar el diálogo según la respuesta del servidor
+        if (response.ok) {
             const dialog = document.getElementById('successDialog');
             dialog.showModal();
             setTimeout(() => {
                 window.location.href = "/"; // Redirigir después de 2 segundos
             }, 2000);
         } else {
-            const errorData = await response.json().catch(() => ({ error: "Error desconocido" }));
-            document.getElementById("errorMessage").textContent = errorData.error || "Error en el registro.";
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('name').value = '';
-            document.getElementById('profilePhoto').value = '';
-            document.getElementById('preview').src = "";
-            document.getElementById('preview').style.display = "none";
+            const dialog = document.getElementById("errorDialog");
+            dialog.showModal();
+        }
+    });
 
+    // Mostrar el diálogo de error si el parámetro "error" está en la URL
+    document.addEventListener("DOMContentLoaded", function() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has("error")) {
             document.getElementById("errorDialog").showModal();
-
         }
     });
 
