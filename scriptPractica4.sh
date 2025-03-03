@@ -30,6 +30,9 @@ echo "Configurando Virtual Hosts..."
 # Copiando archivo de configuracion de SSL en el lugar indicado
 sudo cp ~/scriptPractica4/seguro.conf /etc/apache2/sites-available/
 
+# Habilitando
+sudo a2ensite seguro.conf
+
 # Reiniciar Apache para aplicar cambios
 sudo systemctl restart apache2
 
