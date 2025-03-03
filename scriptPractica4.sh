@@ -22,26 +22,36 @@ source "$HOME/.sdkman/bin/sdkman-init.sh"
 # Utilizando la versión de java 17 como base.
 sdk install java 21.0.3-tem
 
-# Reiniciar Apache para aplicar cambios
-sudo systemctl restart apache2
-
 # Clonar el repositorio de donde se tomara 
 git clone https://github.com/manuujrodcruz/scriptPractica4.git
 
 echo "Configurando Virtual Hosts..."
 
 # Copiando archivo de configuracion de SSL en el lugar indicado
-sudo cp $home/scriptPractica4/seguro.conf /etc/apache2/sites-available/
+sudo cp ~/scriptPractica4/seguro.conf /etc/apache2/sites-available/
 
-# Habilitar los sitios y reiniciar Apache
-sudo a2ensite default-ssl
+# Reiniciar Apache para aplicar cambios
 sudo systemctl restart apache2
 
-# Obtener certificado SSL con Let's Encrypt
-sudo certbot --apache -d tu-dominio.com -d www.tu-dominio.com --non-interactive --agree-tos -m tu-email@example.com
+#Moviendo a la carpeta app1
+cd ~/scriptPractica4/app1
 
-# Reiniciar Apache para aplicar el SSL
-sudo systemctl restart apache2
+# Ejecutando la creación de fatjar
+chmod +x gradlew
+./gradlew shadowjar
+
+# Subiendo la aplicación 1 puerto por defecto.
+java -jar ~/scriptPractica4/app1/build/libs/app.jar > ~/scriptPractica4/app1/build/libs/salida.txt 2> ~/scriptPractica4/app1/build/libs/error.txt &
+
+#Moviendo a la carpeta app2
+cd ../app2
+
+# Ejecutando la creación de fatjar
+chmod +x gradlew
+./gradlew shadowjar
+
+# Subiendo la aplicación 2 puerto por defecto.
+java -jar ~/scriptPractica4/app2/build/libs/app.jar > ~/scriptPractica4/app2/build/libs/salida.txt 2> ~/scriptPractica4/app2/build/libs/error.txt &
 
 echo "Configuración completada. Apache con Virtual Hosts y SSL está funcionando."
 
