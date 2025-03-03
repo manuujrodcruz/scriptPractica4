@@ -26,10 +26,12 @@ sdk install java 21.0.3-tem
 sudo systemctl restart apache2
 
 # Clonar el repositorio de donde se tomara 
+git clone https://github.com/manuujrodcruz/scriptPractica4.git
 
 echo "Configurando Virtual Hosts..."
 
-
+# Copiando archivo de configuracion de SSL en el lugar indicado
+sudo cp $home/scriptPractica4/seguro.conf /etc/apache2/sites-available/
 
 # Habilitar los sitios y reiniciar Apache
 sudo a2ensite default-ssl

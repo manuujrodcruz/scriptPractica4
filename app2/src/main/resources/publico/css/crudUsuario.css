@@ -1,0 +1,112 @@
+/* Fondo del cuerpo y texto */
+body {
+    background-color: #1a202c; /* Fondo oscuro */
+    color: #edf2f7; /* Texto claro */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Títulos */
+h2 {
+    text-align: center;
+    color: #38b2ac; /* Teal claro */
+    margin-bottom: 30px;
+}
+
+/* Estilos para el formulario */
+form {
+    background-color: #2d3748; /* Fondo de formulario oscuro */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-weight: bold;
+    color: #edf2f7; /* Color de las etiquetas */
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #4a5568; /* Borde gris oscuro */
+    background-color: #2d3748; /* Fondo del campo oscuro */
+    color: #edf2f7; /* Texto en los campos */
+    font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus {
+    border-color: #38b2ac; /* Borde teal en focus */
+    outline: none;
+}
+
+input::placeholder,
+select::placeholder {
+    color: #a0aec0; /* Color del texto de los placeholders */
+}
+
+/* Botones */
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #38b2ac; /* Teal para el botón */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #319795; /* Hover un poco más oscuro */
+}
+
+/* Enlace de regreso */
+a {
+    color: #38b2ac;
+    font-size: 1rem;
+    text-decoration: none;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para el select de roles */
+select {
+    background-color: #2d3748;
+    color: #edf2f7;
+    border: 1px solid #4a5568;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+/* Estilo adicional para la tabla de roles disponibles */
+option {
+    background-color: #2d3748;
+    color: #edf2f7;
+}
+
+/* Estilos para los roles seleccionados */
+select option[selected] {
+    background-color: #38b2ac;
+}

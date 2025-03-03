@@ -1,0 +1,105 @@
+/* Color de fondo y texto en el cuerpo */
+body {
+    background-color: #1a202c; /* Color de fondo oscuro */
+    color: #edf2f7; /* Color de texto suave */
+    font-family: 'Georgia', serif;
+}
+
+/* Estilo para la tabla de usuarios */
+.table {
+    background-color: #2d3748; /* Color de fondo de la tabla */
+    color: #edf2f7; /* Color de texto en la tabla */
+    border-radius: 8px;
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+    padding: 16px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #319795; /* Fondo en teal para los encabezados */
+    color: white;
+}
+
+.table tr:nth-child(even) {
+    background-color: #4a5568; /* Fondo alterno para filas */
+}
+
+.table tr:hover {
+    background-color: #2c7a7b; /* Hover para filas */
+}
+
+/* Estilo para los enlaces */
+a {
+    color: #4fd1c5; /* Color teal para los enlaces */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #81e6d9; /* Hover para los enlaces */
+    text-decoration: underline;
+}
+
+/* Estilo para el formulario de búsqueda de usuarios */
+form {
+    background-color: #2d3748; /* Fondo del formulario */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    background-color: #4a5568; /* Fondo de los campos de entrada */
+    color: #edf2f7; /* Color de texto en los campos */
+    border: 1px solid #718096; /* Borde de los campos */
+}
+
+.form-control::placeholder {
+    color: #a0aec0; /* Color del texto del placeholder */
+}
+
+/* Estilo para el botón de búsqueda */
+.btn-teal {
+    background-color: #319795 !important; /* Asegurar que este color se aplique */
+    color: white !important; /* Texto en blanco */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-teal:hover {
+    background-color: #2c7a7b !important;
+}
+
+/* Estilo para la barra lateral de etiquetas */
+aside {
+    background-color: #2d3748; /* Color de fondo de la barra lateral */
+    color: #edf2f7; /* Color de texto en la barra lateral */
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+aside header {
+    background-color: #319795; /* Color de fondo en teal */
+    color: white;
+    padding: 16px;
+    border-radius: 8px 8px 0 0;
+}
+
+aside p {
+    margin-top: 8px;
+    font-size: 1rem;
+}
+
+/* Separadores y líneas */
+hr {
+    border-top: 1px solid #4a5568; /* Color del separador */
+}

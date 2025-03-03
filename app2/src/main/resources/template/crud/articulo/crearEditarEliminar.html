@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Formulario de Creación de Artículo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="/css/formularioCrearEditar.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-200">
+<div class="container mt-5">
+    <h2 th:text="${articulo == null ? 'Creación de Artículo' : 'Edición de Artículo'}" class="text-4xl text-teal-400"></h2>
+    <form id="articleForm"th:action="${accion}" method="post" class="bg-gray-800 p-4 rounded-lg shadow-lg">
+        <div class="form-group">
+            <label for="titulo" class="text-gray-300">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ingrese el título"
+                   th:value="${articulo != null ? articulo.titulo : ''}" required>
+        </div>
+        <div class="form-group">
+            <label for="cuerpo" class="text-gray-300">Contenido</label>
+            <textarea class="form-control" id="cuerpo" name="cuerpo" rows="4" placeholder="Ingrese el contenido" required
+                      th:text="${articulo != null ? articulo.cuerpo : ''}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="etiquetas" class="text-gray-300">Etiquetas (separadas por comas)</label>
+            <input type="text" class="form-control" id="etiquetas" name="etiquetasSeleccionadas"
+                   placeholder="Ingrese las etiquetas" th:value="${articulo != null ? articulo.obtenerEtiquetas(articulo) : ''}" required>
+            <small class="form-text text-muted">Ejemplo: etiqueta1, etiqueta2, etiqueta3</small>
+
+        </div>
+        <button type="submit" class="w-full p-2 bg-teal-500 text-white rounded hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 !important">
+            Guardar
+        </button>
+
+    </form>
+    <!-- Botón de Regreso -->
+    <div class="mt-4">
+        <a th:href="@{/ver/articulo/{id}(id=${articulo != null ? articulo.id : 0})}" class="text-teal-300">← Volver al listado de artículos</a>
+    </div>
+
+    <!-- Dialog de error -->
+    <dialog id="errorDialog">
+        <p id="errorMessage">Error en la creación de artículo, intenta nuevamente.</p>
+        <button onclick="cerrarDialogo()">Cerrar</button>
+    </dialog>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('articleForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const response = await fetch(event.target.action, {
+            method: "POST",
+            body: formData
+        });
+
+        if (response.ok) {
+            window.location.href = "/"; // Redirigir si el guardado fue exitoso
+        } else {
+            const errorData = await response.json();
+            document.getElementById("errorMessage").textContent = errorData.error;
+            document.getElementById("errorDialog").showModal();
+        }
+    });
+
+
+    function cerrarDialogo() {
+        document.getElementById("errorDialog").close();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${titulo}">CRUD Usuarios</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/crudUsuarios.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="jumbotron bg-dark text-white shadow-lg p-4 rounded">
+        <h1 class="display-4" th:text="${titulo}">Gestión de Usuarios</h1>
+        <p class="lead">Lista de usuarios registrados</p>
+    </div>
+
+    <div class="mb-3">
+        <a href="/crud-usuarios/crear" class="btn btn-success"><i class="fas fa-user-plus"></i> Nuevo Usuario</a>
+    </div>
+
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-hover table-responsive-md">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuarios}"
+                    th:if="${usuario != null and not(usuario.tieneRol('ROLE_ADMIN'))}">
+                    <th scope="row" th:text="${usuario.getUsername()}"></th>
+                    <td th:text="${usuario.getNombre()}" class="text-black"></td>
+                    <td>
+                        <span class="text-black" th:text="${usuario.getRolesSplitted(usuario)}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{'/crud-usuario/editar/' + ${usuario.getUsername()}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                        <a th:href="@{'/crud-usuario/eliminar/' + ${usuario.getUsername()}}" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <a th:href="@{'/' }" class="d-block mt-3" ></i> Volver a inicio</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
