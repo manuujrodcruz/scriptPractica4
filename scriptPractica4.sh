@@ -33,6 +33,16 @@ sudo cp ~/scriptPractica4/seguro.conf /etc/apache2/sites-available/
 # Habilitando
 sudo a2ensite seguro.conf
 
+# Verificando y generando certificados SSL
+DOMINIOS=("app1.manuelrodriguez.tech" "app2.manuelrodriguez.tech")
+for DOMINIO in "${DOMINIOS[@]}"; do
+    if [ ! -f "/etc/letsencrypt/live/$DOMINIO/cert.pem" ]; then
+        echo "Certificado para $DOMINIO no encontrado. Generando..."
+        sudo certbot certonly --standalone -d "$DOMINIO" --non-interactive --agree-tos -m "mrmanueljoserodriguezcruz@gmail.com"
+    else
+        echo "Certificado para $DOMINIO ya existe."
+    fi
+done
 # Reiniciar Apache para aplicar cambios
 sudo systemctl restart apache2
 
