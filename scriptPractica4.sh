@@ -35,6 +35,10 @@ sudo a2ensite seguro.conf
 
 # Verificando y generando certificados SSL
 DOMINIOS=("app1.manuelrodriguez.tech" "app2.manuelrodriguez.tech")
+
+# Detener Apache para evitar conflicto con el puerto 80
+sudo systemctl stop apache2
+
 for DOMINIO in "${DOMINIOS[@]}"; do
     if [ ! -f "/etc/letsencrypt/live/$DOMINIO/cert.pem" ]; then
         echo "Certificado para $DOMINIO no encontrado. Generando..."
