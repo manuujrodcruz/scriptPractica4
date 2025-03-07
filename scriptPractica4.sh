@@ -5,6 +5,14 @@ echo "Bienvenido al script de configuracion, le saluda Manuel Rodriguez, disfrut
 
 set -e  # Detener el script en caso de error
 
+# Habilitando la memoria de intercambio.
+sudo dd if=/dev/zero of=/swapfile count=2048 bs=1MiB
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
 echo "Instalando y configurando Apache con Virtual Host y SSL"
 
 # Actualizar el sistema e instalar dependencias
